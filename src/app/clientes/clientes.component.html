@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary mb-4"
+            type="button"
+            [routerLink]="['/clientes/form']">
+      New Client
+    </button>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2"
+             type="search"
+             placeholder="Search"
+             [(ngModel)]="sharedKey"
+             aria-label="Search">
+      <button class="btn btn-rounded btn-primary my-2 my-sm-0"
+              type="submit"
+              (click)='searchSharedKey()'>Search</button>
+    </form>
+    <hr>
+    <h5 class="card-title">Clientes</h5>
+  </div>
+  <div *ngIf="clientes?.length == 0"
+       class="alert alert-info">
+    No hay registros en la base de datos!
+  </div>
+  <table class="table table-bordered table-striped"
+         *ngIf="clientes?.length>0">
+    <thead>
+      <tr>
+        <th>Shared Key</th>
+        <th>Business ID</th>
+        <th>E-mail</th>
+        <th>startDate</th>
+        <th>endDate</th>
+        <th>editar</th>
+        <th>eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.sharedKey | uppercase }}</td>
+        <td>{{ cliente.nombre }} {{ cliente.apellido | uppercase }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.startDate | date:"EEEE dd, MMMM yyyy"}}</td>
+        <td>{{ cliente.endDate | date:"EEEE dd, MMMM yyyy"}}</td>
+        <td>
+          <button type="button"
+                  name="editar"
+                  [routerLink]="['/clientes/form', cliente.id]"
+                  class="btn btn-primary btn-sm">editar</button>
+        </td>
+        <td>
+          <button type="button"
+                  name="eliminar"
+                  (click)='delete(cliente)'
+                  class="btn btn-danger btn-sm">eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <paginator-nav *ngIf="paginador"
+                 [paginador]="paginador"></paginator-nav>
+</div>
