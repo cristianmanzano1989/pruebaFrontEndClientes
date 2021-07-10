@@ -66,7 +66,7 @@ export class ClientesComponent implements OnInit {
    * Searchs shared key
    */
   public searchSharedKey() {
-    
+    this.clientes.filter(cliente => cliente.sharedKey = this.sharedKey);
   }
 
   /**
